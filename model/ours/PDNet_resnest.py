@@ -459,7 +459,10 @@ class PDnet_ResNest_4F_SL_LA(nn.Module):
         x4 = self.rfb4_1(x4)  #[1, 32, 10, 10]
 
         out,side = self.agg1(x4, x3, x2, x1)
-        return self.upsample(out),feature_map,side
+        out = self.upsample(out)
+        out = torch.sigmoid(out)
+
+        return out,feature_map,side
         # return self.upsample(out),side
 
 
